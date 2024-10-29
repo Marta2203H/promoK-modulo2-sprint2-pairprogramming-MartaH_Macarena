@@ -45,6 +45,23 @@ SELECT customer_id, company_name, COUNT(order_id) AS numero_facturas
     GROUP BY customer_id
     ORDER BY customer_id ASC;
 
+-- Ejercicio 5 --- Cuál la cantidad media pedida de todos los productos ProductID: extraer la suma de las cantidades por cada producto y calcular la media
+
+SELECT * FROM products
+LIMIT 7;
+
+SELECT * FROM order_details
+LIMIT 7;
+
+WITH media_cantidades AS (SELECT ROUND(AVG(quantity),2) AS media_producto, product_id
+							FROM order_details
+                            GROUP BY product_id)
+SELECT product_name, media_producto
+	FROM products
+	INNER JOIN media_cantidades
+    USING (product_id)
+    ORDER BY product_name ASC;
+
 
 
 

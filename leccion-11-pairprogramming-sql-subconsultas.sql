@@ -9,23 +9,30 @@ SELECT product_line, product_name, buy_price
 							FROM products AS p2
 							WHERE p1.product_line = p2.product_line);
 
--- Ejercicio 2 DE PAIR
-
+-- Ejercicio 1 -- 
+    /*
+		- pedidos con el máximo "order_date" para cada empleado
+    */
 SELECT *
-	FROM products
+	FROM employees
     LIMIT 8;
     
 SELECT *
 	FROM orders
     LIMIT 8;
     
-SELECT *
-	FROM order_details
-    LIMIT 8;
-    
+
+SELECT order_id, customer_id, employee_id, order_date, required_date
+	FROM orders as o1
+	WHERE order_date = (SELECT MAX(order_date)
+							FROM orders as o2
+							WHERE o2.employee_id = o1.employee_id);
+
+
+-- Ejercicio 2 DE PAIR
+
     /*
 		- max de unit_price de cada product_id que este en la tabla order_details
-        
     */
     
 SELECT product_id, MAX(unit_price) AS max_unit_price_sold
